@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Feliz Cumpleaños</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700;800&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  /* ============================================================
+     PALETA Y VARIABLES
+     ============================================================ */
+  :root{
+    --cuadros-claro:   #fbf3df;
+    --cuadros-oscuro:  #f3d98b;
+    --crema:           #fffdf7;
+    --borde:           #e7c27f;
+    --texto:           #6b4a2b;
+    --texto-suave:     #9a7b52;
+    --acento:          #e8924a;
+    --acento-oscuro:   #d97b30;
+    --sombra:          rgba(107, 74, 43, 0.18);
+  }
+
+  *{ box-sizing: border-box; }
+
+  html, body{
+    margin:0;
+    padding:0;
+    min-height:100vh;
+  }
+
+  body{
+    font-family:'Quicksand', sans-serif;
+    color: var(--texto);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding: 32px 16px;
+    background-color: var(--cuadros-claro);
+    background-image:
+      repeating-linear-gradient(0deg,  var(--cuadros-oscuro) 0 24px, transparent 24px 48px),
+      repeating-linear-gradient(90deg, var(--cuadros-oscuro) 0 24px, transparent 24px 48px);
+    background-blend-mode: multiply;
+  }
+
+  h1, h2, .titulo{
+    font-family:'Baloo 2', sans-serif;
+  }
+
+  /* ============================================================
+     TARJETA PRINCIPAL
+     ============================================================ */
+  .tarjeta{
+    position: relative;
+    width: 100%;
+    max-width: 380px;
+    min-height: 560px;
+    background: var(--crema);
+    border-radius: 28px;
+    border: 2px solid var(--borde);
+    box-shadow: 0 18px 40px var(--sombra);
+    padding: 36px 28px 32px;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    overflow:hidden;
+  }
+
+  .pantalla{
+    display:none;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    gap: 14px;
+    width:100%;
+    animation: aparecer .35s ease;
+  }
+  .pantalla.activa{ display:flex; }
+
+  @keyframes aparecer{
+    from{ opacity:0; transform: translateY(8px); }
+    to{ opacity:1; transform: translateY(0); }
+  }
+
+  .etiqueta{
+    background: var(--crema);
+    border: 1.5px solid var(--borde);
+    border-radius: 10px;
+    padding: 6px 16px;
+    font-size: 13px;
+    color: var(--texto-suave);
+    font-weight:600;
+    margin-bottom: 6px;
+  }
+
+  /* ============================================================
+     BOTONES
+     ============================================================ */
+  .boton{
+    font-family:'Quicksand', sans-serif;
+    font-weight:700;
+    font-size:15px;
+    color:#fff;
+    background: var(--acento);
+    border:none;
+    border-radius: 999px;
+    padding: 12px 28px;
+    cursor:pointer;
+    transition: transform .15s ease, background .15s ease;
+    box-shadow: 0 6px 14px rgba(232,146,74,.35);
+  }
+  .boton:hover{ background: var(--acento-oscuro); transform: translateY(-1px); }
+  .boton:active{ transform: translateY(0); }
+
+  .boton.secundario{
+    background: transparent;
+    color: var(--texto-suave);
+    box-shadow:none;
+    border: 2px solid var(--borde);
+  }
+  .boton.secundario:hover{
+    background: var(--cuadros-claro);
+    color: var(--texto);
+  }
+
+  .fila-botones{
+    display:flex;
+    gap:12px;
+    margin-top: 4px;
+  }
+
+  /* ============================================================
+     PANTALLA 1 · PORTADA
+     ============================================================ */
+  .mascota{
+    width: 120px;
+    height: 120px;
+  }
+
+  #pantalla-portada h1{
+    font-size: 30px;
+    color: var(--acento-oscuro);
+    margin: 4px 0 0;
+  }
+  #pantalla-portada .subtitulo{
+    font-size: 16px;
+    color: var(--texto);
+    margin:0;
+  }
+  #pantalla-portada .instruccion{
+    font-size: 14px;
+    color: var(--texto-suave);
+    margin:0 0 6px;
+  }
+
+  /* ============================================================
+     PANTALLA 2 · CANCIÓN
+     ============================================================ */
+  .tarjeta-cancion{
+    width:100%;
+    background: var(--cuadros-claro);
+    border: 1.5px solid var(--borde);
+    border-radius: 18px;
+    padding: 20px 18px;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:10px;
+  }
+  .nota{ font-size:26px; }
+  
+  /* Ajuste de espacio para las frases de la canción */
+  .tarjeta-cancion p{ 
+    margin:0 0 8px; 
+    font-size:14px; 
+    line-height: 1.5;
+  }
+  .tarjeta-cancion .frase-cancion{ color: var(--texto-suave); }
+
+  .reproductor{
+    width:100%;
+    background:#1f1a17;
+    border-radius: 12px;
+    padding: 10px 12px;
+    display:flex;
+    align-items:center;
+    gap:10px;
+    color:#fff;
+    text-align:left;
+  }
+  .reproductor .portada-mini{
+    width:40px; height:40px;
+    border-radius:8px;
+    background: linear-gradient(135deg, var(--acento), #f4c76a);
+    flex-shrink:0;
+  }
+  .reproductor .info-cancion{ flex:1; min-width:0; }
+  .reproductor .info-cancion .nombre{
+    font-size:13px; font-weight:700;
+    white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
+  }
+  .reproductor .info-cancion .artista{
+    font-size:12px; opacity:.7;
+    white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
+  }
+  .reproductor .icono-play{
+    width:32px;height:32px;
+    border-radius:50%;
+    background: var(--acento);
+    display:flex;align-items:center;justify-content:center;
+    flex-shrink:0;
+    cursor: pointer;
+    transition: transform 0.2s;
+  }
+  .reproductor .icono-play:hover { transform: scale(1.1); }
+
+  /* ============================================================
+     PANTALLA 3 · SOBRE
+     ============================================================ */
+  .sobre-wrap{ cursor:pointer; }
+  .sobre{
+    width: 150px;
+    height: 105px;
+  }
+
+  /* ============================================================
+     PANTALLA 4 · "¿DE NUEVO?" 
+     ============================================================ */
+  #pantalla-retry .mascota{ width:90px; height:90px; }
+  #pantalla-retry p{
+    font-size: 14px;
+    color: var(--texto-suave);
+    margin:0;
+  }
+
+  /* ============================================================
+     PANTALLA 5 · CARTA FINAL
+     ============================================================ */
+  #pantalla-carta{
+    justify-content:flex-start;
+    height:100%;
+  }
+  .corazones{ font-size: 22px; letter-spacing: 6px; }
+  
+  /* AQUÍ AJUSTAMOS EL ESPACIO DE LAS FRASES EN LA CARTA */
+  .carta-texto{
+    font-size: 15px; /* Un poco más grande para leer mejor */
+    line-height: 1.8; /* Más espacio entre líneas */
+    color: var(--texto);
+    text-align:left;
+    max-height: 300px;
+    overflow-y:auto;
+    padding-right: 6px;
+  }
+  .carta-texto p{ 
+    margin: 0 0 22px; /* Más espacio entre cada párrafo */
+  }
+  
+  .firma{
+    font-family:'Baloo 2', sans-serif;
+    font-size: 16px;
+    color: var(--acento-oscuro);
+    margin-top: 6px;
+  }
+
+  .confeti{
+    position:absolute;
+    top:-10px;
+    width:8px; height:14px;
+    border-radius:2px;
+    animation: caer linear forwards;
+    pointer-events:none;
+  }
+  @keyframes caer{
+    to{ transform: translateY(620px) rotate(180deg); opacity:0; }
+  }
+</style>
+</head>
+<body>
+
+<div class="tarjeta" id="tarjeta">
+
+  <!-- PANTALLA 1 · PORTADA -->
+  <section class="pantalla activa" id="pantalla-portada">
+    <img class="mascota" src="imagens/pomporrumin.png" alt="Pompompurin">
+    <h1>¡Feliz Cumpleaños!</h1>
+    <p class="subtitulo">mi persona favorita ✨</p>
+    <p class="instruccion">Pulsa el botón para continuar (˶ᵔ ᵕ ᵔ˶)</p>
+    <button class="boton" onclick="irA('pantalla-cancion')">Siguiente →</button>
+  </section>
+
+  <!-- PANTALLA 2 · CANCIÓN -->
+  <section class="pantalla" id="pantalla-cancion">
+    <span class="etiqueta">🎵 Una canción para ti</span>
+    <div class="tarjeta-cancion">
+      <span class="nota">🎶</span>
+      <p><strong>te dedico esta cancion jeje…</strong></p>
+      
+      <div class="reproductor">
+        <div class="portada-mini"></div>
+        <div class="info-cancion">
+          <div class="nombre">do you think you could love me</div>
+          <div class="artista">yung kai</div>
+        </div>
+        <!-- Botón de Play interactivo -->
+        <div class="icono-play" id="btnPlay" onclick="toggleMusica()">▶</div>
+      </div>
+      
+      <p class="frase-cancion">Te la dedico porque son cosas que siento por ti 💛</p>
+    </div>
+    <button class="boton" onclick="irA('pantalla-sobre')">Siguiente →</button>
+  </section>
+
+  <!-- PANTALLA 3 · SOBRE -->
+  <section class="pantalla" id="pantalla-sobre">
+    <span class="etiqueta">¿Quieres abrirlo? ヽ(・∀・)ﾉ</span>
+    <div class="sobre-wrap" onclick="abrirCarta()">
+      <svg class="sobre" viewBox="0 0 150 105" fill="none">
+        <rect x="2" y="2" width="146" height="101" rx="10" fill="var(--crema)" stroke="var(--borde)" stroke-width="2.5"/>
+        <path d="M6 8 L75 62 L144 8" stroke="var(--borde)" stroke-width="2.5" fill="none" stroke-linejoin="round"/>
+      </svg>
+    </div>
+    <div class="fila-botones">
+      <button class="boton" onclick="abrirCarta()">Abrir</button>
+      <button class="boton secundario" onclick="irA('pantalla-retry')">No, gracias</button>
+    </div>
+  </section>
+
+  <!-- PANTALLA 4 · REINTENTO -->
+  <section class="pantalla" id="pantalla-retry">
+    <img class="mascota" src="imagens/12.png" alt="Pompompurin">
+    <p>Aaay… ¿lo intentamos otra vez? (｡•́︿•̀｡)</p>
+    <button class="boton" onclick="irA('pantalla-sobre')">Otra vez…?</button>
+  </section>
+
+  <!-- PANTALLA 5 · CARTA FINAL -->
+  <section class="pantalla" id="pantalla-carta">
+    <div class="corazones">💛💛💛</div>
+    <div class="carta-texto">
+      <p>Hola nico, esta carta la hago por hoy tu cumpleaños, estoy agradecido contigo por dejarme conocerte, espero la pases bien hoy con tus amigas y con tu familia siempre te deseare lo mejor porque te lo mereces eres una chica incrible a pesar de haberte conocido un mes </p>
+      <p>Han pasado muchas cosas en ese tiempo, es increible que de un comentario ramdom te haya podido conocer, aprecio mucho todas esas cosas que hacemos juntos, eres una chica bien genial, maravillosa y excepcional, que con un solo mensaje tuyo aunque suene tonto me hace feliz, tambien cuando hablamos de cualqueir wbd y hacemos cualquier cosa me siento muy afortunado, como te dije antes quisiera conocerte mas y aun mas, me gustas mucho nico </p>
+      <p>Espero poder seguir contigo en tus siguientes cumpleaños hermosa, quiero hacerte recordar lo linda y pro que eres para mi, todo lo que me enseñaste me parecio muy hermoso que se quedaron en mi mente, tambien espero que en algun momento podremos vernos en persona, nose lo que piensas sobre eso pero creo que seria muy kawai</p>
+      <p>Feliz cumpleaños nicoooooo. ❤️</p>
+    </div>
+    <div class="firma">att: nikopsitoo</div>
+    <button class="boton" onclick="irA('pantalla-portada')">Volver a empezar</button>
+  </section>
+
+</div>
+
+<!-- REPRODUCTOR DE AUDIO OCULTO -->
+<!-- CAMBIA "tu-cancion.mp3" POR EL NOMBRE DE TU ARCHIVO DE MÚSICA -->
+<audio id="miMusica" src="yung kai - do you think you could love me.mp3"></audio>
+
+<script>
+  // ============================================================
+  // LÓGICA DE MÚSICA
+  // ============================================================
+  const musica = document.getElementById('miMusica');
+  const btnPlay = document.getElementById('btnPlay');
+
+  function toggleMusica() {
+    if (musica.paused) {
+      musica.play();
+      btnPlay.innerHTML = '⏸'; // Símbolo de pausa
+    } else {
+      musica.pause();
+      btnPlay.innerHTML = '▶'; // Símbolo de play
+    }
+  }
+
+  // Si la música termina, regresamos el botón al símbolo de Play
+  musica.addEventListener('ended', function() {
+    btnPlay.innerHTML = '▶';
+  });
+
+  // ============================================================
+  // NAVEGACIÓN ENTRE PANTALLAS
+  // ============================================================
+  function irA(idPantalla){
+    document.querySelectorAll('.pantalla').forEach(p => p.classList.remove('activa'));
+    document.getElementById(idPantalla).classList.add('activa');
+    
+    // Opcional: Si quieres que la música se pause si regresan a la portada, descomenta esto:
+    /*
+    if(idPantalla === 'pantalla-portada') {
+      musica.pause();
+      musica.currentTime = 0;
+      btnPlay.innerHTML = '▶';
+    }
+    */
+  }
+
+  // Al abrir la carta, se lanza un pequeño confeti
+  function abrirCarta(){
+    lanzarConfeti();
+    setTimeout(() => irA('pantalla-carta'), 250);
+  }
+
+  function lanzarConfeti(){
+    const colores = ['#e8924a', '#f4c76a', '#c96b3e', '#f6e3b4'];
+    const contenedor = document.getElementById('tarjeta');
+    for(let i = 0; i < 24; i++){
+      const pieza = document.createElement('div');
+      pieza.className = 'confeti';
+      pieza.style.left = Math.random() * 100 + '%';
+      pieza.style.background = colores[Math.floor(Math.random() * colores.length)];
+      pieza.style.animationDuration = (1 + Math.random()) + 's';
+      pieza.style.transform = `rotate(${Math.random() * 360}deg)`;
+      contenedor.appendChild(pieza);
+      setTimeout(() => pieza.remove(), 2200);
+    }
+  }
+</script>
+
+</body>
+</html>
